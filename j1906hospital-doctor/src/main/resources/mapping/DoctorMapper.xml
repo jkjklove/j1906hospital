@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.j1906.doctor.mapper.DoctorMapper" >
+  <resultMap id="BaseResultMap" type="com.qf.j1906.common.po.Doctor" >
+    <id column="doctor_id" property="doctorId" jdbcType="INTEGER" />
+    <result column="doctor_name" property="doctorName" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="do_img" property="doImg" jdbcType="VARCHAR" />
+    <result column="do_info" property="doInfo" jdbcType="VARCHAR" />
+    <result column="do_status" property="doStatus" jdbcType="VARCHAR" />
+    <result column="pa_name" property="paName" jdbcType="VARCHAR" />
+    <result column="telphone" property="telphone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    doctor_id, doctor_name, gender, department, do_img, do_info, do_status, pa_name, 
+    telphone
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qf.j1906.common.po.DoctorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from doctor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from doctor
+    where doctor_id = #{doctorId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from doctor
+    where doctor_id = #{doctorId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qf.j1906.common.po.DoctorExample" >
+    delete from doctor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qf.j1906.common.po.Doctor" >
+    insert into doctor (doctor_id, doctor_name, gender, 
+      department, do_img, do_info, 
+      do_status, pa_name, telphone
+      )
+    values (#{doctorId,jdbcType=INTEGER}, #{doctorName,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+      #{department,jdbcType=VARCHAR}, #{doImg,jdbcType=VARCHAR}, #{doInfo,jdbcType=VARCHAR}, 
+      #{doStatus,jdbcType=VARCHAR}, #{paName,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qf.j1906.common.po.Doctor" >
+    insert into doctor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="doctorId != null" >
+        doctor_id,
+      </if>
+      <if test="doctorName != null" >
+        doctor_name,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="doImg != null" >
+        do_img,
+      </if>
+      <if test="doInfo != null" >
+        do_info,
+      </if>
+      <if test="doStatus != null" >
+        do_status,
+      </if>
+      <if test="paName != null" >
+        pa_name,
+      </if>
+      <if test="telphone != null" >
+        telphone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="doctorId != null" >
+        #{doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="doctorName != null" >
+        #{doctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="doImg != null" >
+        #{doImg,jdbcType=VARCHAR},
+      </if>
+      <if test="doInfo != null" >
+        #{doInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="doStatus != null" >
+        #{doStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paName != null" >
+        #{paName,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qf.j1906.common.po.DoctorExample" resultType="java.lang.Integer" >
+    select count(*) from doctor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update doctor
+    <set >
+      <if test="record.doctorId != null" >
+        doctor_id = #{record.doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.doctorName != null" >
+        doctor_name = #{record.doctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null" >
+        department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.doImg != null" >
+        do_img = #{record.doImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.doInfo != null" >
+        do_info = #{record.doInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.doStatus != null" >
+        do_status = #{record.doStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paName != null" >
+        pa_name = #{record.paName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telphone != null" >
+        telphone = #{record.telphone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update doctor
+    set doctor_id = #{record.doctorId,jdbcType=INTEGER},
+      doctor_name = #{record.doctorName,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=VARCHAR},
+      do_img = #{record.doImg,jdbcType=VARCHAR},
+      do_info = #{record.doInfo,jdbcType=VARCHAR},
+      do_status = #{record.doStatus,jdbcType=VARCHAR},
+      pa_name = #{record.paName,jdbcType=VARCHAR},
+      telphone = #{record.telphone,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qf.j1906.common.po.Doctor" >
+    update doctor
+    <set >
+      <if test="doctorName != null" >
+        doctor_name = #{doctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="doImg != null" >
+        do_img = #{doImg,jdbcType=VARCHAR},
+      </if>
+      <if test="doInfo != null" >
+        do_info = #{doInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="doStatus != null" >
+        do_status = #{doStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paName != null" >
+        pa_name = #{paName,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        telphone = #{telphone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where doctor_id = #{doctorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qf.j1906.common.po.Doctor" >
+    update doctor
+    set doctor_name = #{doctorName,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      do_img = #{doImg,jdbcType=VARCHAR},
+      do_info = #{doInfo,jdbcType=VARCHAR},
+      do_status = #{doStatus,jdbcType=VARCHAR},
+      pa_name = #{paName,jdbcType=VARCHAR},
+      telphone = #{telphone,jdbcType=VARCHAR}
+    where doctor_id = #{doctorId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllDoctor" resultMap="BaseResultMap">
+    select
+      doctor_id,
+      doctor_name,
+      gender,
+      department,
+      do_img,
+      do_info,
+      do_status,
+      pa_name,
+      telphone
+    from
+        doctor
+  </select>
+  <insert id="saveDoctor">
+    insert
+    into
+    doctor(
+      doctor_name,
+      gender,
+      department,
+      do_img,
+      do_info,
+      do_status,
+      pa_name,
+      telphone
+    )
+    values (
+
+        #{doctorName},
+        #{gender},
+        #{department},
+        #{doImg},
+        #{doInfo},
+        #{doStatus},
+        #{paName},
+        #{telphone}
+    )
+  </insert>
+  <update id="upDoctor">
+    update
+        doctor
+    set
+        doctor_name = #{doctorName},
+        gender = #{gender},
+        department = #{department},
+        do_img = #{doImg},
+        do_info = #{doInfo},
+        do_status = #{doStatus},
+        pa_name = #{paName},
+        telphone = #{telphone}
+    where
+        doctor_id = #{doctorId}
+  </update>
+
+  <select id="souSuo" resultMap="BaseResultMap">
+    select * from doctor where concat(do_Name,gender,do_Info) like '%' #{sousuo} '%'
+  </select>
+</mapper>
